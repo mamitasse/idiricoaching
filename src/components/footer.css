@@ -1,0 +1,76 @@
+/* Conteneur global pour la section des réseaux sociaux */
+.social-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .social-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px; /* espace entre les sections Nadia et Sabrina */
+  }
+  
+  .social-icons img {
+    width: 40px; /* Ajuste la taille des icônes */
+    height: 40px;
+    margin: 5px;
+  }
+  
+  .social-icons h3 {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* Section générale */
+  footer {
+    display: flex;
+    justify-content: space-around;
+    background-color: #715252;
+    padding: 20px;
+  }
+  
+  footer .social-section {
+    display: flex;
+    justify-content: center;
+  }
+  
+  footer .social-section .social-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .social-icons a {
+    margin-bottom: 5px; /* espace entre les icônes */
+  }
+  
+  .social-icons h3 {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #fff;
+  }
+  
+  /* Styles pour petits écrans */
+  @media (max-width: 768px) {
+    footer {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .social-icons {
+      margin-bottom: 20px;
+    }
+  }
+  span{
+    font-size: 10px;
+  }
+  .logo img{
+    width: 100px;
+    height: 50px;
+  }

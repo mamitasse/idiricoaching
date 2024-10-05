@@ -1,0 +1,66 @@
+.nadia-page {
+    padding: 20px;
+    background-color: #f4f4f9;
+  }
+  
+  .nadia-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .nadia-header h1 {
+    font-size: 36px;
+    color: #3e3e3e;
+  }
+  
+  .nadia-header p {
+    font-size: 18px;
+    color: #666;
+  }
+  
+  .nadia-carousel {
+    margin: 0 auto;
+    width: 80%;
+  }
+  
+  .nadia-services {
+    margin-top: 40px;
+  }
+  
+  .nadia-services h2 {
+    font-size: 28px;
+    color: #3e3e3e;
+  }
+  
+  .nadia-services ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .nadia-services ul li {
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .nadia-signup {
+    text-align: center;
+    margin-top: 40px;
+  }
+  
+  .signup-button {
+    background-color: #ff9900;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .signup-button:hover {
+    background-color: #e68a00;
+  }
+  

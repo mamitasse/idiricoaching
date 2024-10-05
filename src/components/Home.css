@@ -1,0 +1,232 @@
+/* Styles globaux */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #4E3C3C;
+  margin: 0;
+  padding: 0;
+}
+
+/* Conteneur principal */
+.home-container {
+  text-align: center;
+  padding: 50px 20px;
+  color: #FFFFFF;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Conteneur des coachs */
+.coaches {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.coach-card {
+  background-color: #715252;
+  border-radius: 15px;
+  padding: 20px;
+  width: 300px;
+  transition: transform 0.3s ease;
+}
+
+.coach-card:hover {
+  transform: scale(1.05);
+}
+
+/* Image du coach */
+.coach-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Nom du coach */
+.coach-card h2 {
+  font-size: 22px;
+  margin: 15px 0;
+  color: #F3E0D9;
+}
+
+/* Bouton de présentation */
+button {
+  background-color: #C2A391;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  color: #FFFFFF;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #D4B6A5;
+}
+
+/* Footer */
+footer {
+  background-color: #333333;
+  padding: 20px;
+  margin-top: 50px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+footer img {
+  width: 30px;
+  margin: 0 10px;
+}
+
+footer p {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* Pour les petits écrans */
+@media (max-width: 768px) {
+  .coaches {
+    flex-direction: column;
+  }
+
+  .coach-card {
+    margin-bottom: 30px;
+  }
+}
+/* Styles du header */
+header {
+  background-color: #715252;
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #FFFFFF;
+
+  top: 0;
+  z-index: 1000;
+}
+
+/* Logo */
+.header-logo {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.header-logo img {
+  width: 60px; /* Taille de l'image du logo */
+  margin-right: 10px;
+}
+
+.header-logo h1 {
+  font-size: 24px;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  color: #F3E0D9;
+}
+
+/* Menu de navigation */
+nav {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+nav ul li {
+  margin: 0 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #FFFFFF;
+  font-size: 18px;
+  font-family: 'Arial', sans-serif;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #C2A391;
+}
+
+/* Bouton Connexion/Inscription */
+.header-button {
+  background-color: #C2A391;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-right: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.header-button:hover {
+  background-color: #D4B6A5;
+}
+/* Container global */
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
+}
+
+/* Styles des cartes de coach */
+.coach-card {
+  width: 300px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.coach-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Style uniforme des images */
+.coach-image {
+  width: 300px;
+height:250px;
+  object-fit: cover;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Texte au bas de la carte */
+.coach-details {
+  padding: 15px;
+  text-align: center;
+}
+
+.coach-details h3 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.coach-details p {
+  font-size: 1em;
+  color: #666;
+}
