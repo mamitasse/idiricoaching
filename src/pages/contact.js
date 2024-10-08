@@ -16,10 +16,13 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Vérifie les données avant de les envoyer
+    console.log("Données du formulaire:", formData);
+
     // Adresses email des destinataires
     const emailMapping = {
-      nadia: 'idirinadia10@gmail.com', 
-      sabrina: 'idiri.tassa@gmail.com', 
+      nadia: 'idirinadia10@gmail.com',
+      sabrina: 'idiri.tassa@gmail.com',
     };
 
     // Préparation des données à envoyer
@@ -34,7 +37,7 @@ const Contact = () => {
       name: formData.name,
       email: formData.email,
       message: formData.message,
-      recipientEmail: emailToSend, // L'adresse du destinataire choisie
+      recipient: formData.recipient,  // Utilise 'recipient' comme champ attendu par le backend
     };
 
     try {

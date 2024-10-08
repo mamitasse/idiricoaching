@@ -9,12 +9,15 @@ const Service = () => {
         Chez IdiriCoaching, nous vous offrons une gamme complète de services personnalisés pour répondre à vos objectifs de santé, bien-être et performance.
       </p>
 
-   
       <div className="service-section">
-      <h2>Yoga,Bien-être</h2>
+        <h2>Yoga, Bien-être</h2>
         <p>
           Nos cours de yoga sont adaptés à tous les niveaux et vous aident à améliorer votre souplesse, renforcer votre esprit, et détendre votre corps. Le yoga est également un excellent moyen de travailler la posture et la respiration. Nous vous aidons à trouver un équilibre mental et physique à travers des techniques de relaxation et de gestion du stress. L'accent est mis sur l'amélioration de votre bien-être global.
         </p>
+        {/* Ajout du texte visible pour le lien */}
+        <a href="https://www.instagram.com/tv/CPn52yLqtDr/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener noreferrer">
+          Découvrez notre vidéo de yoga sur Instagram
+        </a>
       </div>
 
       <div className="service-section">

@@ -1,5 +1,5 @@
 import React from 'react';
-import CarouselComponent from './carousel'; // Assure-toi d'importer correctement le carousel
+import CarouselComponent from '../components/carousel'; // Assure-toi d'importer correctement le carousel
 import './SabrinaPage.css'; // Fichier CSS pour styliser la page
 
 const SabrinaPage = () => {
@@ -18,6 +18,7 @@ const SabrinaPage = () => {
       <div className="sabrina-services">
         <h2>Services proposés par Sabrina</h2>
         <ul>
+        <li>yoga , bien-être</li>
           <li>Perte de poids</li>
           <li>Remise en forme</li>
           <li>Préparation à la compétition</li>

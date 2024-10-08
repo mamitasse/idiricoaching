@@ -1,6 +1,6 @@
 import React from 'react';
 import nadiaImage from '../assets/nadiapagedaccueil.png';
-import sabrinaImage from '../assets/sabrinapagedaccueil.png';
+import sabrinaImage from '../assets/sabrinapagedaccueil.jpg';
 
 import { Link } from 'react-router-dom';
 import './Home.css'; 

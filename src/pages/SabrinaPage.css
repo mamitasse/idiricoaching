@@ -1,0 +1,158 @@
+/* Style global pour la page de Nadia */
+.sabrina-page {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Arial', sans-serif;
+  color: #2c2c2c; 
+  background-color:#4E3C3C;/* Texte principal en gris très foncé pour une meilleure lisibilité */
+}
+
+/* Style pour l'entête de la page */
+.sabrina-header {
+  text-align: center;
+  background-color: #986542; /* Brun pour l'en-tête */
+  padding: 40px 20px;
+  border-radius: 8px;
+  color: #fffaf0; /* Ivoire pour un bon contraste avec le brun */
+}
+
+.sabrina-header h1 {
+  font-size: 2.5rem;
+  color: #fffaf0; /* Texte ivoire pour un contraste maximal avec le fond brun */
+  margin-bottom: 10px;
+}
+
+.sabrina-header p {
+  font-size: 1.2rem;
+  color: #f5deb3; /* Couleur blé pour les sous-titres */
+}
+
+/* Style pour le carousel */
+.sabrina-carousel {
+  margin: 40px 0;
+  text-align: center;
+}
+
+.sabrina-carousel h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #cf8a59 /* Gris foncé pour un bon contraste avec le fond */
+}
+
+/* Services section */
+.sabrina-services {
+  margin: 40px 0;
+  text-align: center;
+}
+
+.sabrina-services h2 {
+  font-size: 2rem;
+  color: #cf8a59; /* Brun pour rester cohérent avec l'en-tête */
+  margin-bottom: 20px;
+}
+
+.nadia-services ul {
+  list-style: none;
+  padding: 0;
+  list-style-type: none;
+}
+
+.sabrina-services li {
+  font-size: 1.1rem;
+  color: #ba8d8d; /* Texte en gris très foncé pour une bonne lisibilité */
+  margin: 10px 0;
+}
+
+/* Inscription / Connexion section */
+.sabrina-signup {
+  text-align: center;
+  background-color: #f5f5dc; /* Beige clair pour une section plus lumineuse */
+  padding: 40px 20px;
+  border-radius: 8px;
+  margin-top: 40px;
+}
+
+.sabrina-signup h2 {
+  font-size: 2rem;
+  color: #8b4513; /* Brun pour les titres */
+  margin-bottom: 10px;
+}
+
+.sabrina-signup p {
+  font-size: 1.2rem;
+  color: #2c2c2c; /* Gris très foncé pour le texte */
+  margin-bottom: 20px;
+}
+
+.signup-button {
+  background-color: #d2691e; /* Orange foncé pour attirer l'attention mais avec des tons chaleureux */
+  color: #fff; /* Texte en blanc pour un contraste fort avec le bouton */
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.signup-button:hover {
+  background-color: #c45d1c; /* Orange plus foncé au survol */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .sabrina-header h1 {
+    font-size: 2rem;
+  }
+
+  .sabrina-header p,
+  .sabrina-signup p {
+    font-size: 1rem;
+  }
+
+  .sabrina-carousel h2,
+  .sabrina-services h2,
+  .sabrina-signup h2 {
+    font-size: 1.5rem;
+  }
+
+  .signup-button {
+    font-size: 1rem;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .sabrina-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .sabrina-header p,
+  .sabrina-signup p {
+    font-size: 0.9rem;
+  }
+
+  .sabrina-carousel h2,
+  .sabrina-services h2,
+  .sabrina-signup h2 {
+    font-size: 1.2rem;
+  }
+
+  .signup-button {
+    font-size: 0.9rem;
+    padding: 7px 14px;
+  }
+}
+.sabrina-services ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sabrina-services ul li {
+  background-color: #fff;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}

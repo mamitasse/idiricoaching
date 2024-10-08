@@ -1,32 +1,63 @@
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #3e3e3e;
-  }
-  
-  .navbar-logo .logo {
-    height: 50px;
-  }
-  
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #715252;;
+}
+
+.navbar-logo .logo {
+  height: 70px;
+}
+
+.navbar-links {
+  list-style-type: none;
+ 
+}
+
+.navbar-links li {
+  display: inline;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #fff;
+  font-size: 18px;
+}
+
+.nav-link:hover {
+  color: #ff9900;
+}
+
+/* Style pour le bouton menu (menu hamburger) */
+.menu-toggle {
+  display: none;
+  font-size: 30px;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Responsive pour les petits écrans */
+@media (max-width: 768px) {
   .navbar-links {
-    list-style-type: none;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    top: 60px; /* Ajuste selon la hauteur de la navbar */
+    right: 20px;
+    background-color: #3e3e3e;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .navbar-links.open {
     display: flex;
-    gap: 20px;
   }
-  
-  .navbar-links li {
-    display: inline;
+
+  .menu-toggle {
+    display: block;
   }
-  
-  .nav-link {
-    text-decoration: none;
-    color: #fff;
-    font-size: 18px;
-  }
-  
-  .nav-link:hover {
-    color: #ff9900;
-  }
-  
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import CarouselComponent from './carousel'; // Utilise le même carousel si nécessaire
+import CarouselComponent from '../components/carousel'; // Utilise le même carousel si nécessaire
 import './NadiaPage.css'; // Fichier CSS pour styliser la page
 
 const NadiaPage = () => {

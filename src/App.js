@@ -1,17 +1,18 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from '../src/components/Navbar';
-import Home from '../src/components/Home';
-import NadiaPage from '../src/components/NadiaPage';
-import SabrinaPage from '../src/components/SabrinaPage';
-import Signup from '../src/components/signup';
+import Home from '../src/pages/Home';
+import NadiaPage from '../src/pages/NadiaPage';
+import SabrinaPage from '../src/pages/SabrinaPage';
+import Signup from '../src/pages/signup';
 import Footer from '../src/components/footer'
-import Services from '../src/components/services'
-import Contact from './components/contact.js'
-import Login from '../src/components/login.js'
-import CoachDashboard from '../src/components/CoachDashboard';
-import AdherentDashboard from '../src/components/AdherentDashboard.js';
+import Services from '../src/pages/services'
+import Contact from '../src/pages/contact.js'
+import Login from '../src/pages/login.js'
+import CoachDashboard from '../src/pages/CoachDashboard';
+import AdherentDashboard from '../src/pages/AdherentDashboard.js';
 import PrivateRoute from './PrivateRoute';
+import CoachSignup from '../src/pages/coachSignup.js';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/coach-signup" element={<CoachSignup/>} />
         <Route path="/coach-dashboard" element={<PrivateRoute allowedRole="coach"><CoachDashboard /></PrivateRoute>} />
         <Route path="/adherent-dashboard" element={<PrivateRoute allowedRole="adherent"><AdherentDashboard /></PrivateRoute>} />
       </Routes>
