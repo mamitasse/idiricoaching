@@ -65,4 +65,8 @@
     font-size: 12px;
     margin-top: 5px;
   }
-  
+  .error-text {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 4px;
+  }

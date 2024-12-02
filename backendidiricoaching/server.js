@@ -1,49 +1,99 @@
+//IDIRICOACHING/backendendidiricoaching/server.js
+
 const express = require('express');
 const mongoose = require('mongoose');
+const helmet = require('helmet');
 const cors = require('cors');
-const userRoutes = require('./routes/userRoutes'); // Routes pour les utilisateurs
-const adherentRoutes = require('./routes/adherentRegister'); // Vérifiez le chemin d'accès
-const emailRoutes = require('./routes/emailRoutes'); // Routes pour l'envoi d'emails
-const coachRoutes = require('./routes/coachRegister'); // Routes pour l'inscription des coachs
-const { authMiddleware, roleMiddleware } = require('./middleware/authMiddleware'); // Middleware pour authentification et rôle
-require('dotenv').config(); // Pour utiliser les variables d'environnement
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(express.json()); // Pour lire le corps des requêtes en JSON
-app.use(cors()); // Pour éviter les problèmes de CORS
+// Vérification des variables d'environnement critiques
+if (!process.env.MONGO_URI) {
+  console.error('⚠️  La variable d\'environnement MONGO_URI est manquante.');
+  process.exit(1);
+}
 
 // Connexion à MongoDB
-const uri = process.env.MONGO_URI || "mongodb+srv://mamitasse:Massi0310@idiricoaching.grpny.mongodb.net/idiricoaching?retryWrites=true&w=majority";
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("Connecté à MongoDB"))
-  .catch(err => console.error("Erreur lors de la connexion à MongoDB:", err));
 
-// Routes utilisateur
+
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 30000, // Temps d'attente pour se connecter
+})
+  .then(() => console.log('✅ Connecté à MongoDB'))
+  .catch(err => {
+    console.error('❌ Erreur MongoDB :', err.message);
+    process.exit(1); // Quitter si la connexion échoue
+  });
+
+
+
+// Middleware globaux
+app.use(express.json());
+app.use(helmet());
+app.use(cors({
+  origin: 'http://localhost:3000', // URL du frontend
+  credentials: true, // Permet l'envoi des cookies (si nécessaire)
+}));
+
+// Importation des routes
+const userRoutes = require('./routes/userRoutes');
+
+const coachRoutes = require('./routes/coachRoutes');
+const slotRoutes = require('./routes/slotRoutes');
+const reservationRoutes = require('./routes/reservationRoutes');
+const emailRoutes = require('./routes/emailRoutes');
+
+// Utilisation des routes
 app.use('/api/users', userRoutes);
+app.use('/api/coaches', coachRoutes);
+app.use('/api/slots', slotRoutes);
+app.use('/api/reservations', reservationRoutes);
+app.use('/api/emails', emailRoutes);
 
-// Routes email
-app.use('/api', emailRoutes);
-
-
-// Routes pour les coachs
-app.use('/api', coachRoutes); // Ajoutez les routes des coachs ici
-
-// Routes pour les adhérents
-app.use('/api', adherentRoutes); // Ajoutez les routes des adhérents ici
-
-// Routes protégées
-app.get('/api/coach-only', authMiddleware, roleMiddleware(['coach']), (req, res) => {
-  res.send('Bienvenue Coach !');
+// Debug : Afficher toutes les routes enregistrées
+console.log("Liste des routes enregistrées :");
+app._router.stack.forEach((middleware) => {
+  if (middleware.route) { // Si c'est une route
+    console.log(`${Object.keys(middleware.route.methods).join(', ').toUpperCase()} ${middleware.route.path}`);
+  } else if (middleware.name === 'router') { // Si c'est un routeur (nested routes)
+    middleware.handle.stack.forEach((handler) => {
+      if (handler.route) {
+        console.log(`${Object.keys(handler.route.methods).join(', ').toUpperCase()} ${handler.route.path}`);
+      }
+    });
+  }
 });
 
-app.get('/api/adherent-only', authMiddleware, roleMiddleware(['adherent']), (req, res) => {
-  res.send('Bienvenue Adhérent !');
+
+
+
+
+// Gestion des erreurs 404 pour les routes non trouvées
+app.use((req, res, next) => {
+  res.status(404).json({ error: 'Ressource non trouvée.' });
 });
 
-// Lancer le serveur
+// Middleware global pour la gestion des erreurs
+app.use((err, req, res, next) => {
+  console.error('Erreur détectée :', err.stack);
+  res.status(err.status || 500).json({
+    error: err.message || 'Erreur serveur.',
+  });
+});
+
+app._router.stack.forEach((middleware) => {
+  if (middleware.route) {
+    console.log(`${Object.keys(middleware.route.methods).join(', ').toUpperCase()} ${middleware.route.path}`);
+  }
+});
+
+// Démarrage du serveur
 app.listen(PORT, () => {
-  console.log(`Serveur démarré sur le port ${PORT}`);
+  console.log(`🚀 Serveur démarré sur le port ${PORT}`);
 });
+
+

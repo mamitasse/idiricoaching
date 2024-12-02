@@ -1,31 +1,39 @@
-/* Style global pour la page de Nadia */
+/* Style global pour la page de Sabrina */
 .sabrina-page {
+  font-family: 'Verdana', Geneva, Tahoma, sans-serif;
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
-  font-family: 'Arial', sans-serif;
-  color: #2c2c2c; 
-  background-color:#4E3C3C;/* Texte principal en gris très foncé pour une meilleure lisibilité */
+  color: #2c2c2c;
+  background-color: #4E3C3C;
+  line-height: 1.6; /* Améliore la lisibilité du texte */
 }
 
 /* Style pour l'entête de la page */
 .sabrina-header {
   text-align: center;
-  background-color: #986542; /* Brun pour l'en-tête */
-  padding: 40px 20px;
+  background-color: #986542;
+  padding: 10px 10px;
   border-radius: 8px;
-  color: #fffaf0; /* Ivoire pour un bon contraste avec le brun */
+  color: #fffaf0;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Ombre plus intense */
+  transition: transform 0.3s ease; /* Effet de transformation fluide */
+  
+}
+
+.sabrina-header:hover {
+  transform: scale(1.02); /* Légère agrandissement au survol */
 }
 
 .sabrina-header h1 {
-  font-size: 2.5rem;
-  color: #fffaf0; /* Texte ivoire pour un contraste maximal avec le fond brun */
-  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #fffaf0;
+  margin-bottom: 5px;
 }
 
 .sabrina-header p {
-  font-size: 1.2rem;
-  color: #f5deb3; /* Couleur blé pour les sous-titres */
+  font-size: 1rem;
+  color: #f5deb3;
 }
 
 /* Style pour le carousel */
@@ -35,9 +43,25 @@
 }
 
 .sabrina-carousel h2 {
-  font-size: 2rem;
+  font-size: 1rem;
   margin-bottom: 20px;
-  color: #cf8a59 /* Gris foncé pour un bon contraste avec le fond */
+  color: #cf8a59;
+}
+
+/* Style pour les images du carousel */
+.sabrina-carousel .carousel .slide img {
+  width: calc(100% - 20px); /* Largeur de l'image avec une petite marge */
+  margin: 0 20px;
+  height: 300px; /* Hauteur fixe pour toutes les images */
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Ombre accentuée pour les images */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition fluide pour les effets */
+}
+
+.sabrina-carousel .carousel .slide img:hover {
+  transform: scale(1.05); /* Agrandissement au survol */
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4); /* Ombre encore plus intense au survol */
 }
 
 /* Services section */
@@ -47,63 +71,88 @@
 }
 
 .sabrina-services h2 {
-  font-size: 2rem;
-  color: #cf8a59; /* Brun pour rester cohérent avec l'en-tête */
+  font-size: 1rem;
+  color: #cf8a59;
   margin-bottom: 20px;
 }
 
-.nadia-services ul {
+.sabrina-services ul {
   list-style: none;
   padding: 0;
-  list-style-type: none;
 }
 
 .sabrina-services li {
-  font-size: 1.1rem;
-  color: #ba8d8d; /* Texte en gris très foncé pour une bonne lisibilité */
+  font-size: 1rem;
+  color: #ba8d8d;
   margin: 10px 0;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Ombre plus forte pour les services */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Effet de transition */
+}
+
+.sabrina-services li:hover {
+  transform: scale(1.05); /* Agrandissement des éléments de la liste au survol */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Ombre accentuée au survol */
 }
 
 /* Inscription / Connexion section */
 .sabrina-signup {
   text-align: center;
-  background-color: #f5f5dc; /* Beige clair pour une section plus lumineuse */
+  background-color: #f5f5dc;
   padding: 40px 20px;
   border-radius: 8px;
   margin-top: 40px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Ombre plus forte */
+  transition: transform 0.3s ease; /* Transition fluide */
+}
+
+.sabrina-signup:hover {
+  transform: scale(1.02); /* Légère mise en avant au survol */
 }
 
 .sabrina-signup h2 {
   font-size: 2rem;
-  color: #8b4513; /* Brun pour les titres */
+  color: #8b4513;
   margin-bottom: 10px;
 }
 
 .sabrina-signup p {
-  font-size: 1.2rem;
-  color: #2c2c2c; /* Gris très foncé pour le texte */
+  font-size: 1rem;
+  color: #2c2c2c;
   margin-bottom: 20px;
 }
 
 .signup-button {
-  background-color: #d2691e; /* Orange foncé pour attirer l'attention mais avec des tons chaleureux */
-  color: #fff; /* Texte en blanc pour un contraste fort avec le bouton */
+  background-color: #d2691e;
+  color: #fff;
   border: none;
   padding: 10px 20px;
   font-size: 1.1rem;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-left: 20px;
 }
 
 .signup-button:hover {
-  background-color: #c45d1c; /* Orange plus foncé au survol */
+  background-color: #c45d1c;
+  transform: scale(1.1); /* Agrandissement plus marqué au survol */
+}
+
+/* Légende du carousel */
+.sabrina-carousel .carousel .legend {
+  background-color: transparent;
+  color: #000;
+  font-size: 1rem;
+  text-align: center;
 }
 
 /* Responsive styles */
 @media (max-width: 768px) {
   .sabrina-header h1 {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   .sabrina-header p,
@@ -114,18 +163,22 @@
   .sabrina-carousel h2,
   .sabrina-services h2,
   .sabrina-signup h2 {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 
   .signup-button {
     font-size: 1rem;
     padding: 8px 16px;
   }
+
+  .sabrina-carousel .carousel .slide img {
+    height: 350px;
+  }
 }
 
 @media (max-width: 576px) {
   .sabrina-header h1 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
 
   .sabrina-header p,
@@ -136,23 +189,15 @@
   .sabrina-carousel h2,
   .sabrina-services h2,
   .sabrina-signup h2 {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   .signup-button {
     font-size: 0.9rem;
     padding: 7px 14px;
   }
-}
-.sabrina-services ul {
-  list-style-type: none;
-  padding: 0;
-}
 
-.sabrina-services ul li {
-  background-color: #fff;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  .sabrina-carousel .carousel .slide img {
+    height: 300px;
+  }
 }

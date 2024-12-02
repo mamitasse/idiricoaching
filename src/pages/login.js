@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Login.css'; // Assure-toi que ce fichier existe pour styliser le formulaire.
+import './Login.css'; // Assurez-vous d'avoir un fichier CSS pour styliser le formulaire.
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -15,57 +15,67 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  // Gère les changements dans le formulaire
+  // Gérer les changements dans le formulaire
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-// Fonction pour gérer la soumission du formulaire
-const handleSubmit = async (e) => {
-  e.preventDefault();
 
-  try {
-    const response = await fetch('http://localhost:5000/api/users/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: formData.email,
-        password: formData.password,
-      }),
-    });
+  // Gérer la soumission du formulaire
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    // Vérifie si la réponse est OK avant de traiter le corps
-    if (!response.ok) {
-      const errorData = await response.json(); // Récupère le corps de la réponse si pas OK
-      setErrors({ ...errors, submissionError: true, errorMessage: errorData.error || 'Une erreur est survenue' });
-      return; // Sort de la fonction pour éviter de continuer
-    }
+    try {
+      const response = await fetch('http://localhost:5000/api/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    const data = await response.json(); // Récupère le corps de la réponse
-
-    console.log(data); // Affiche la réponse pour vérifier
-
-    // Vérifie si les données contiennent un token et un rôle
-    if (data.token && data.user) {
-      localStorage.setItem('token', data.token); // Stocke le token dans localStorage (ou un autre endroit de votre choix)
-      const userRole = data.user.role; // Récupère le rôle de l'utilisateur (coach ou adhérent)
-
-      // Redirige en fonction du rôle de l'utilisateur
-      if (userRole === 'coach') {
-        navigate('/coach-dashboard'); // Redirection vers le tableau de bord du coach
-      } else if (userRole === 'adherent') {
-        navigate('/adherent-dashboard'); // Redirection vers le tableau de bord de l'adhérent
+      // Vérifiez si la réponse est OK
+      if (!response.ok) {
+        const errorData = await response.json(); // Récupère les erreurs du backend
+        setErrors({
+          submissionError: true,
+          errorMessage: errorData.error || 'Une erreur est survenue.',
+        });
+        return;
       }
+
+      const data = await response.json(); // Récupère les données de l'utilisateur
+
+      console.log('Connexion réussie :', data); // Debug
+
+      // Stockez le token et les informations utilisateur dans `localStorage`
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('userId', data.user._id); // Utiliser _id si c'est le champ correct
+      localStorage.setItem('coachName', `${data.user.firstName} ${data.user.lastName}`);
+      localStorage.setItem('role', data.user.role);
+
+      // Vérifiez et affichez le rôle pour déboguer
+      console.log('Rôle de l’utilisateur :', data.user.role);
+
+      // Redirection basée sur le rôle de l'utilisateur
+      if (data.user.role === 'coach') {
+        navigate('/coach-dashboard'); // Redirige vers le tableau de bord du coach
+      } else if (data.user.role === 'adherent') {
+        navigate('/adherent-dashboard'); // Redirige vers le tableau de bord de l'adhérent
+      } else {
+        setErrors({
+          submissionError: true,
+          errorMessage: 'Rôle utilisateur inconnu. Veuillez contacter un administrateur.',
+        });
+      }
+    } catch (error) {
+      console.error('Erreur lors de la connexion :', error);
+      setErrors({
+        submissionError: true,
+        errorMessage: 'Une erreur est survenue lors de la connexion. Veuillez réessayer.',
+      });
     }
-  } catch (error) {
-    console.error('Erreur lors de la connexion:', error);
-    setErrors({ ...errors, submissionError: true, errorMessage: 'Une erreur est survenue lors de la connexion' });
-  }
-};
-
-
+  };
 
   return (
     <div className="login-container">

@@ -1,66 +1,202 @@
+/* Style global pour la page de Sabrina */
 .nadia-page {
-    padding: 20px;
-    background-color: #f4f4f9;
-  }
+  font-family: 'Verdana', Geneva, Tahoma, sans-serif;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: #2c2c2c;
+  background-color: #4E3C3C;
+  line-height: 1.6; /* Améliore la lisibilité du texte */
+}
+
+/* Style pour l'entête de la page */
+.nadia-header {
+  text-align: center;
+  background-color: #986542;
+  padding: 10px 10px;
+  border-radius: 8px;
+  color: #fffaf0;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Ombre plus intense */
+  transition: transform 0.3s ease; /* Effet de transformation fluide */
   
-  .nadia-header {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  
+}
+
+.nadia-header:hover {
+  transform: scale(1.02); /* Légère agrandissement au survol */
+}
+
+.nadia-header h1 {
+  font-size: 1.5rem;
+  color: #fffaf0;
+  margin-bottom: 5px;
+}
+
+.nadia-header p {
+  font-size: 1rem;
+  color: #f5deb3;
+}
+
+/* Style pour le carousel */
+.nadia-carousel {
+  margin: 40px 0;
+  text-align: center;
+}
+
+.nadia-carousel h2 {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  color: #cf8a59;
+}
+
+/* Style pour les images du carousel */
+.nadia-carousel .carousel .slide img {
+  width: calc(100% - 20px); /* Largeur de l'image avec une petite marge */
+  margin: 0 20px;
+  height: 300px; /* Hauteur fixe pour toutes les images */
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Ombre accentuée pour les images */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition fluide pour les effets */
+}
+
+.nadia-carousel .carousel .slide img:hover {
+  transform: scale(1.05); /* Agrandissement au survol */
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4); /* Ombre encore plus intense au survol */
+}
+
+/* Services section */
+.nadia-services {
+  margin: 40px 0;
+  text-align: center;
+}
+
+.nadia-services h2 {
+  font-size: 1rem;
+  color: #cf8a59;
+  margin-bottom: 20px;
+}
+
+.nadia-services ul {
+  list-style: none;
+  padding: 0;
+}
+
+.nadia-services li {
+  font-size: 1rem;
+  color: #ba8d8d;
+  margin: 10px 0;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Ombre plus forte pour les services */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Effet de transition */
+}
+
+.nadia-services li:hover {
+  transform: scale(1.05); /* Agrandissement des éléments de la liste au survol */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Ombre accentuée au survol */
+}
+
+/* Inscription / Connexion section */
+.nadia-signup {
+  text-align: center;
+  background-color: #f5f5dc;
+  padding: 40px 20px;
+  border-radius: 8px;
+  margin-top: 40px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Ombre plus forte */
+  transition: transform 0.3s ease; /* Transition fluide */
+}
+
+.nadia-signup:hover {
+  transform: scale(1.02); /* Légère mise en avant au survol */
+}
+
+.nadia-signup h2 {
+  font-size: 2rem;
+  color: #8b4513;
+  margin-bottom: 10px;
+}
+
+.nadia-signup p {
+  font-size: 1rem;
+  color: #2c2c2c;
+  margin-bottom: 20px;
+}
+
+.signup-button {
+  background-color: #d2691e;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.signup-button:hover {
+  background-color: #c45d1c;
+  transform: scale(1.1); /* Agrandissement plus marqué au survol */
+}
+
+/* Légende du carousel */
+.nadia-carousel .carousel .legend {
+  background-color: transparent;
+  color: #000;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
   .nadia-header h1 {
-    font-size: 36px;
-    color: #3e3e3e;
+    font-size: 1.5rem;
   }
-  
-  .nadia-header p {
-    font-size: 18px;
-    color: #666;
+
+  .nadia-header p,
+  .nadia-signup p {
+    font-size: 1rem;
   }
-  
-  .nadia-carousel {
-    margin: 0 auto;
-    width: 80%;
+
+  .nadia-carousel h2,
+  .nadia-services h2,
+  .nadia-signup h2 {
+    font-size: 1rem;
   }
-  
-  .nadia-services {
-    margin-top: 40px;
-  }
-  
-  .nadia-services h2 {
-    font-size: 28px;
-    color: #3e3e3e;
-  }
-  
-  .nadia-services ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .nadia-services ul li {
-    background-color: #fff;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .nadia-signup {
-    text-align: center;
-    margin-top: 40px;
-  }
-  
+
   .signup-button {
-    background-color: #ff9900;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px;
+    font-size: 1rem;
+    padding: 8px 16px;
   }
-  
-  .signup-button:hover {
-    background-color: #e68a00;
+
+  .nadia-carousel .carousel .slide img {
+    height: 350px;
   }
-  
+}
+
+@media (max-width: 576px) {
+  .nadia-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .nadia-header p,
+  .nadia-signup p {
+    font-size: 0.9rem;
+  }
+
+  .nadia-carousel h2,
+  .nadia-services h2,
+  .nadia-signup h2 {
+    font-size: 1rem;
+  }
+
+  .signup-button {
+    font-size: 0.9rem;
+    padding: 7px 14px;
+  }
+
+  .nadia-carousel .carousel .slide img {
+    height: 300px;
+  }
+}

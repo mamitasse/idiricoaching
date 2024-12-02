@@ -54,20 +54,24 @@ h1 {
 }
 
 /* Bouton de présentation */
-button {
+
+
+.presentation-button, .signin-button{
   background-color: #C2A391;
   border: none;
   border-radius: 8px;
   padding: 10px 20px;
-  color: #FFFFFF;
+  color: #564040;
   font-size: 16px;
   cursor: pointer;
+  font-weight: 700;
   margin-top: 10px;
   transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #D4B6A5;
+.presentation-button:hover, .signin-button:hover {
+  background-color: #4a403a;
+  color:#e3d9d9
 }
 
 /* Footer */
@@ -229,4 +233,13 @@ height:250px;
 .coach-details p {
   font-size: 1em;
   color: #666;
+}
+.contact {
+  margin-top: 30px;
+}
+.connexion-inscription{
+  margin-top: 10px;
+display: flex;
+flex-direction: row;
+justify-content: center;
 }

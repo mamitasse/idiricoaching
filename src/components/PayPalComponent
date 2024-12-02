@@ -1,0 +1,33 @@
+//component/PaypalComponent.js
+import React from 'react';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+
+const PayPalComponent = ({ slotId }) => {
+    const handleApprove = async (data, actions) => {
+        return actions.order.capture().then((details) => {
+            alert(`Paiement réussi par ${details.payer.name.given_name}`);
+            // Ajoutez ici toute logique supplémentaire pour confirmer la réservation
+        });
+    };
+
+    return (
+        <PayPalScriptProvider options={{ 'client-id': process.env.REACT_APP_PAYPAL_CLIENT_ID }}>
+            <PayPalButtons
+                style={{ layout: 'vertical' }}
+                createOrder={(data, actions) => {
+                    return actions.order.create({
+                        purchase_units: [
+                            {
+                                amount: { value: '10.00' }, // Montant à payer
+                                custom_id: slotId, // ID du créneau réservé
+                            },
+                        ],
+                    });
+                }}
+                onApprove={handleApprove}
+            />
+        </PayPalScriptProvider>
+    );
+};
+
+export default PayPalComponent;

@@ -1,16 +1,9 @@
+//components/carousel.js
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // Nécessaire pour le style
 
-const CarouselComponent = () => {
-  // Tableau d'images et de légendes
-  const images = [
-    { url: "url_de_image1", legend: "Performance 1" },
-    { url: "url_de_image2", legend: "Performance 2" },
-    { url: "url_de_image3", legend: "Performance 3" },
-    // Ajoute d'autres images ici si nécessaire
-  ];
-
+const CarouselComponent = ({ images }) => {
   return (
     <Carousel
       showArrows={true}
@@ -19,6 +12,7 @@ const CarouselComponent = () => {
       interval={3000}
       showThumbs={false}
       showStatus={false}
+       showIndicators={false}
     >
       {images.map((image, index) => (
         <div key={index}>

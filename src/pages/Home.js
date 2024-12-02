@@ -1,3 +1,4 @@
+//pages/home.js
 import React from 'react';
 import nadiaImage from '../assets/nadiapagedaccueil.png';
 import sabrinaImage from '../assets/sabrinapagedaccueil.jpg';
@@ -36,9 +37,25 @@ function Home() {
           </div>
         </div>
 
-        <div className="signin-section">
-          <button className="signin-button">Connexion/Inscription</button>
+      <div className='connexion-inscription'>
+      <div className="signin-section">
+         <button className="signup-button connexion" onClick={() => window.location.href = '/login'}>
+       connexion
+        </button>
         </div>
+        <div className="signin-section">
+         <button className="signup-button connexion" onClick={() => window.location.href = '/signup'}>
+       inscription
+        </button>
+        </div>
+      </div>
+        
+        <div className="signin-section">
+         <button className="signup-button contact" onClick={() => window.location.href = '/Contact'}>
+        Contact
+        </button>
+        </div>
+
 
        
       </main>

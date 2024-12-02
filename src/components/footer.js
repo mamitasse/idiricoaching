@@ -1,3 +1,4 @@
+//components/footer.js
 import React from 'react';
 
 import './footer.css'; // Si tu as un fichier CSS pour la navbar

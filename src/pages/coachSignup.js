@@ -6,10 +6,11 @@ const CoachSignup = () => {
     firstName: '',
     lastName: '',
     email: '',
+    confirmEmail: '',
     password: '',
+    confirmPassword: '',
     gender: '',
     age: '',
- 
   });
 
   const handleChange = (e) => {
@@ -18,6 +19,15 @@ const CoachSignup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Vérifier si les emails et les mots de passe correspondent
+    if (formData.email !== formData.confirmEmail) {
+      return alert("Les emails ne correspondent pas !");
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      return alert("Les mots de passe ne correspondent pas !");
+    }
 
     try {
       const response = await fetch('http://localhost:5000/api/coach-register', {
@@ -39,16 +49,48 @@ const CoachSignup = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" name="firstName" placeholder="Prénom" onChange={handleChange} />
-      <input type="text" name="lastName" placeholder="Nom" onChange={handleChange} />
-      <input type="email" name="email" placeholder="Email" onChange={handleChange} />
-      <input type="password" name="password" placeholder="Mot de passe" onChange={handleChange} />
-      <input type="text" name="gender" placeholder="Genre" onChange={handleChange} />
-      <input type="number" name="age" placeholder="Âge" onChange={handleChange} />
-     
-      <button type="submit">S'inscrire</button>
-    </form>
+    <div className="coach-signup-container">
+      <h2>Inscription Coach</h2>
+      <form onSubmit={handleSubmit} className="coach-signup-form">
+        <div className="form-group">
+          <label>Prénom</label>
+          <input type="text" name="firstName" placeholder="Prénom" value={formData.firstName} onChange={handleChange} required />
+        </div>
+        <div className="form-group">
+          <label>Nom</label>
+          <input type="text" name="lastName" placeholder="Nom" value={formData.lastName} onChange={handleChange} required />
+        </div>
+        <div className="form-group">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
+        </div>
+        <div className="form-group">
+          <label>Confirmez l'Email</label>
+          <input type="email" name="confirmEmail" placeholder="Confirmez l'Email" value={formData.confirmEmail} onChange={handleChange} required />
+        </div>
+        <div className="form-group">
+          <label>Mot de passe</label>
+          <input type="password" name="password" placeholder="Mot de passe" value={formData.password} onChange={handleChange} required />
+        </div>
+        <div className="form-group">
+          <label>Confirmez le Mot de passe</label>
+          <input type="password" name="confirmPassword" placeholder="Confirmez le Mot de passe" value={formData.confirmPassword} onChange={handleChange} required />
+        </div>
+        <div className="form-group">
+          <label>Genre</label>
+          <select name="gender" value={formData.gender} onChange={handleChange} required>
+            <option value="">Sélectionnez un genre</option>
+            <option value="homme">Homme</option>
+            <option value="femme">Femme</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label>Âge</label>
+          <input type="number" name="age" placeholder="Âge" value={formData.age} onChange={handleChange} required />
+        </div>
+        <button type="submit">S'inscrire</button>
+      </form>
+    </div>
   );
 };
 

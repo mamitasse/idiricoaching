@@ -3,6 +3,14 @@ import CarouselComponent from '../components/carousel'; // Assure-toi d'importer
 import './SabrinaPage.css'; // Fichier CSS pour styliser la page
 
 const SabrinaPage = () => {
+  const Images = [];
+
+  for (let i = 1; i <= 9; i++) {
+    Images.push({
+      url: require(`../assets/imageSabrina/photoSabrina${i}.jpg`)
+    });
+  }
+  
   return (
     <div className="sabrina-page">
       <div className="sabrina-header">
@@ -11,9 +19,10 @@ const SabrinaPage = () => {
       </div>
 
       <div className="sabrina-carousel">
-        <h2>Les performances de Sabrina</h2>
-        <CarouselComponent />
-      </div>
+  <h2>Les performances de Sabrina</h2>
+  <CarouselComponent images={Images} />
+</div>
+
 
       <div className="sabrina-services">
         <h2>Services proposés par Sabrina</h2>
@@ -27,10 +36,17 @@ const SabrinaPage = () => {
       </div>
 
       <div className="sabrina-signup">
-        <h2>Intéressé(e) par ses services ?</h2>
-        <p>Inscrivez-vous pour bénéficier d'un coaching personnalisé.</p>
+      <h2>Intéressé(e) par ses services ?</h2>
+        <p>Contactez-nous pour bénéficier d'un coaching personnalisé.</p>
+        <button className="signup-button" onClick={() => window.location.href = '/Contact'}>
+          
+        Contact
+        </button>
         <button className="signup-button" onClick={() => window.location.href = '/signup'}>
-          Inscription / Connexion
+          Inscription
+        </button>
+        <button className="signup-button" onClick={() => window.location.href = '/login'}>
+          connexion
         </button>
       </div>
     </div>
