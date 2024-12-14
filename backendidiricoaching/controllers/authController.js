@@ -5,6 +5,8 @@ const User = require('../models/user');
 /**
  * Contrôleur pour la connexion des utilisateurs.
  */
+const { deletePastSlots } = require('./slotController'); // Importez la fonction
+
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -19,6 +21,11 @@ const loginUser = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: 'Mot de passe incorrect.' });
+    }
+
+    // Supprimez les créneaux obsolètes si l'utilisateur est un coach
+    if (user.role === 'coach') {
+      await deletePastSlots(user._id);
     }
 
     // Créer un token JWT
@@ -44,5 +51,7 @@ const loginUser = async (req, res) => {
     res.status(500).json({ message: 'Erreur serveur.' });
   }
 };
+
+
 
 module.exports = { loginUser };

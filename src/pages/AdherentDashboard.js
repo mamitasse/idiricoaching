@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './AdherentDashboard.css';
 
 const AdherentDashboard = () => {
   const [user, setUser] = useState(null); // Informations de l'utilisateur connecté
-  const [availableSlots, setAvailableSlots] = useState([]); // Créneaux disponibles
-  const [reservedSlots, setReservedSlots] = useState([]); // Créneaux réservés
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]); // Date sélectionnée
+  const [availableSlots, setAvailableSlots] = useState([]); // Créneaux disponibles pour la date
+  const [reservedSlots, setReservedSlots] = useState([]); // Créneaux réservés par l'utilisateur
   const [selectedSlot, setSelectedSlot] = useState(''); // Créneau sélectionné pour réservation
 
-  // Récupérer les informations de l'utilisateur
+  // Récupérer les informations de l'utilisateur connecté
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
@@ -19,16 +21,14 @@ const AdherentDashboard = () => {
         }
 
         const response = await axios.get('http://localhost:5000/api/users/me', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
 
         setUser(response.data);
         if (response.data.coachId) {
-          fetchAvailableSlots(response.data.coachId._id); // Récupère les créneaux pour le coach
+          await fetchAvailableSlots(response.data.coachId._id, selectedDate); // Récupère les créneaux pour le coach et la date
         }
-        fetchReservedSlots(response.data._id); // Récupère les créneaux réservés par l'adhérent
+        await fetchReservedSlots(response.data._id); // Récupère les créneaux réservés par l'utilisateur
       } catch (error) {
         console.error('Erreur lors de la récupération des informations utilisateur :', error);
         alert('Impossible de récupérer vos informations.');
@@ -36,72 +36,69 @@ const AdherentDashboard = () => {
     };
 
     fetchUserInfo();
-  }, []);
+  }, [selectedDate]);
 
-  // Récupérer les créneaux disponibles pour le coach
-  const fetchAvailableSlots = async (coachId) => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get(`http://localhost:5000/api/coaches/${coachId}/slots?status=available`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setAvailableSlots(response.data);
-    } catch (error) {
-      console.error('Erreur lors de la récupération des créneaux disponibles :', error);
-      alert('Erreur lors de la récupération des créneaux disponibles.');
-    }
-  };
-
-  // Récupérer les créneaux réservés par l'adhérent
-  const fetchReservedSlots = async () => {
+  // Récupérer les créneaux disponibles pour le coach et la date
+  const fetchAvailableSlots = async (coachId, date) => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get(
-        `http://localhost:5000/api/reservations/adherent/${user._id}/reserved-slots`,
+        `http://localhost:5000/api/coaches/${coachId}/slots?date=${date}&status=available`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
+
+      setAvailableSlots(response.data);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des créneaux disponibles :', error);
+      setAvailableSlots([]); // Réinitialise la liste si une erreur survient
+    }
+  };
+
+  // Récupérer les créneaux réservés par l'utilisateur
+  const fetchReservedSlots = async (adherentId) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(
+        `http://localhost:5000/api/reservations/adherent/${adherentId}/reserved-slots`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
       setReservedSlots(response.data);
     } catch (error) {
       console.error('Erreur lors de la récupération des créneaux réservés :', error);
     }
   };
-  
 
   // Réserver un créneau
   const handleReserveSlot = async () => {
     if (!selectedSlot) {
-        alert('Veuillez sélectionner un créneau.');
-        return;
+      alert('Veuillez sélectionner un créneau.');
+      return;
     }
 
     try {
-        const token = localStorage.getItem('token');
-        const response = await axios.put(
-            'http://localhost:5000/api/reservations/reserve-slot',
-            { slotId: selectedSlot }, // Transmet le slotId
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }
-        );
+      const token = localStorage.getItem('token');
+      const response = await axios.patch(
+        'http://localhost:5000/api/reservations/reserve-slot',
+        { slotId: selectedSlot },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
-        alert('Créneau réservé avec succès.');
-        setReservedSlots([...reservedSlots, response.data.slot]); // Ajoute le créneau réservé
-        setAvailableSlots(availableSlots.filter((slot) => slot._id !== selectedSlot)); // Supprime le créneau des créneaux disponibles
-        setSelectedSlot(''); // Réinitialise la sélection
+      alert('Créneau réservé avec succès.');
+      setSelectedSlot(''); // Réinitialise la sélection
+      await fetchReservedSlots(user._id); // Recharge la liste des créneaux réservés
+      await fetchAvailableSlots(user.coachId._id, selectedDate); // Recharge les créneaux disponibles
     } catch (error) {
-        console.error('Erreur lors de la réservation du créneau :', error);
-        alert('Impossible de réserver ce créneau.');
+      console.error('Erreur lors de la réservation du créneau :', error.response?.data || error.message);
+      alert('Impossible de réserver ce créneau.');
     }
-};
-
+  };
 
   return (
     <div>
@@ -113,6 +110,24 @@ const AdherentDashboard = () => {
       )}
 
       <h3>Créneaux disponibles</h3>
+      <div style={{ marginBottom: '20px' }}>
+        <label htmlFor="slot-date">Sélectionnez une date :</label>
+        <input
+          id="slot-date"
+          type="date"
+          value={selectedDate}
+          onChange={async (e) => {
+            const chosenDate = e.target.value;
+            setSelectedDate(chosenDate);
+
+            if (user && user.coachId) {
+              await fetchAvailableSlots(user.coachId._id, chosenDate);
+            }
+          }}
+          style={{ width: '100%', padding: '10px', marginBottom: '10px' }}
+        />
+      </div>
+
       <select
         value={selectedSlot}
         onChange={(e) => setSelectedSlot(e.target.value)}
@@ -121,10 +136,11 @@ const AdherentDashboard = () => {
         <option value="">Sélectionnez un créneau à réserver</option>
         {availableSlots.map((slot) => (
           <option key={slot._id} value={slot._id}>
-            {`${slot.date} | ${slot.startTime} - ${slot.endTime}`}
+            {`${slot.startTime} - ${slot.endTime}`}
           </option>
         ))}
       </select>
+
       <button onClick={handleReserveSlot} disabled={!selectedSlot}>
         Réserver
       </button>

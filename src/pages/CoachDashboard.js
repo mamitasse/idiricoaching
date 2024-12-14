@@ -9,7 +9,8 @@ const CoachDashboard = () => {
   const [adherents, setAdherents] = useState([]);
   const [selectedAdherent, setSelectedAdherent] = useState("");
   const [slots, setSlots] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().slice(0, 10));
+  const [reservedSlots, setReservedSlots] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split("T")[0]);
   const [newSlot, setNewSlot] = useState({ startTime: "", endTime: "" });
   const navigate = useNavigate();
 
@@ -64,6 +65,27 @@ const CoachDashboard = () => {
     fetchAdherents();
   }, []);
 
+  // Charger les créneaux réservés pour un adhérent sélectionné
+  useEffect(() => {
+    if (selectedAdherent) {
+      fetchReservedSlots(selectedAdherent);
+    }
+  }, [selectedAdherent]);
+
+  const fetchReservedSlots = async (adherentId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const headers = { Authorization: `Bearer ${token}` };
+      const response = await axios.get(
+        `http://localhost:5000/api/reservations/${adherentId}/reserved-slots`,
+        { headers }
+      );
+      setReservedSlots(response.data);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des créneaux réservés :", error.response?.data || error.message);
+    }
+  };
+
   // Charger les créneaux pour la date sélectionnée
   useEffect(() => {
     reloadSlots();
@@ -75,49 +97,26 @@ const CoachDashboard = () => {
       console.error("Token manquant dans localStorage.");
       return;
     }
-  
+
     try {
       const headers = { Authorization: `Bearer ${token}` };
       const response = await axios.get(`http://localhost:5000/api/slots?date=${selectedDate}`, { headers });
-  
-      // Fonction pour formater les heures
-      const formatTime = (time) => {
-        const [hours, minutes] = time.split(":");
-        return `${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}`;
-      };
-  
-      // Formatez les créneaux récupérés
-      const formattedSlots = response.data.map((slot) => ({
-        ...slot,
-        startTime: formatTime(slot.startTime),
-        endTime: formatTime(slot.endTime),
-      }));
-  
-      if (formattedSlots.length === 0) {
+
+      if (response.data.length === 0) {
         console.log("Aucun créneau trouvé, génération des créneaux par défaut...");
-  
-        const generateResponse = await axios.post(
+        await axios.post(
           "http://localhost:5000/api/slots/generate-default",
           { date: selectedDate },
           { headers }
         );
-  
-        const generatedFormattedSlots = generateResponse.data.map((slot) => ({
-          ...slot,
-          startTime: formatTime(slot.startTime),
-          endTime: formatTime(slot.endTime),
-        }));
-  
-        setSlots(generatedFormattedSlots);
-      } else {
-        console.log("Créneaux récupérés depuis la base de données :", formattedSlots);
-        setSlots(formattedSlots);
       }
+
+      const updatedResponse = await axios.get(`http://localhost:5000/api/slots?date=${selectedDate}`, { headers });
+      setSlots(updatedResponse.data);
     } catch (error) {
       console.error("Erreur lors de la récupération des créneaux :", error.response?.data || error.message);
     }
   };
-  
 
   // Ajouter un créneau manuel
   const handleAddSlot = async () => {
@@ -145,22 +144,7 @@ const CoachDashboard = () => {
     }
   };
 
-  // Supprimer un créneau (le rendre indisponible)
-  const handleDeleteSlot = async (slotId) => {
-    try {
-      const token = localStorage.getItem("token");
-      const headers = { Authorization: `Bearer ${token}` };
-
-      await axios.patch(`http://localhost:5000/api/slots/update-status`, { slotId, status: "unavailable" }, { headers });
-
-      alert("Le créneau a été marqué comme indisponible.");
-      reloadSlots();
-    } catch (error) {
-      console.error("Erreur lors de la suppression du créneau :", error.response?.data || error.message);
-    }
-  };
-
-  // Marquer un créneau comme réservé
+  // Mark a slot as reserved
   const handleReserveSlot = async (slotId) => {
     try {
       const token = localStorage.getItem("token");
@@ -172,6 +156,36 @@ const CoachDashboard = () => {
       reloadSlots();
     } catch (error) {
       console.error("Erreur lors de la réservation du créneau :", error.response?.data || error.message);
+    }
+  };
+
+  // Mark a slot as available
+  const handleMakeSlotAvailable = async (slotId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const headers = { Authorization: `Bearer ${token}` };
+
+      await axios.patch(`http://localhost:5000/api/slots/update-status`, { slotId, status: "available" }, { headers });
+
+      alert("Le créneau a été marqué comme disponible.");
+      reloadSlots();
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour du créneau :", error.response?.data || error.message);
+    }
+  };
+
+  // Mark a slot as unavailable
+  const handleDeleteSlot = async (slotId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const headers = { Authorization: `Bearer ${token}` };
+
+      await axios.patch(`http://localhost:5000/api/slots/update-status`, { slotId, status: "unavailable" }, { headers });
+
+      alert("Le créneau a été marqué comme indisponible.");
+      reloadSlots();
+    } catch (error) {
+      console.error("Erreur lors de la suppression du créneau :", error.response?.data || error.message);
     }
   };
 
@@ -202,6 +216,23 @@ const CoachDashboard = () => {
         <button onClick={viewAdherentProfile}>Voir le profil</button>
       </div>
 
+      {selectedAdherent && (
+        <div>
+          <h2>Créneaux réservés par {adherents.find((a) => a._id === selectedAdherent)?.firstName} {adherents.find((a) => a._id === selectedAdherent)?.lastName}</h2>
+          {reservedSlots.length > 0 ? (
+            <ul>
+              {reservedSlots.map((slot) => (
+                <li key={slot._id}>
+                  {slot.date} de {slot.startTime} à {slot.endTime}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>Aucun créneau réservé.</p>
+          )}
+        </div>
+      )}
+
       <div>
         <h2>Gestion des créneaux</h2>
         <input
@@ -226,6 +257,7 @@ const CoachDashboard = () => {
               <div>
                 <button onClick={() => handleDeleteSlot(slot._id)}>Indisponible</button>
                 <button onClick={() => handleReserveSlot(slot._id)}>Réserver</button>
+                <button onClick={() => handleMakeSlotAvailable(slot._id)}>Disponible</button>
               </div>
             </div>
           ))}

@@ -1,5 +1,3 @@
-//IDIRICOACHING/backendendidiricoaching/routes/emailRoutes.js
-
 const express = require('express');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
@@ -8,8 +6,8 @@ const router = express.Router();
 
 router.post('/send-email', async (req, res) => {
   const { name, email, message, recipient } = req.body;
+  console.log('Données reçues dans la requête POST:', req.body); // Vérifiez ici les données reçues
 
-  console.log("Données reçues dans la requête POST:", req.body);
 
   // Vérification que tous les champs sont fournis
   if (!name || !email || !message || !recipient) {
@@ -30,13 +28,13 @@ router.post('/send-email', async (req, res) => {
 
   console.log("Email du destinataire:", recipientEmail);
 
-  // Créer le transporteur Nodemailer
+  // Création du transporteur Nodemailer (exemple avec Gmail et mot de passe d'application)
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
+        user: process.env.SMTP_USER, // Adresse Gmail (ex : votre-email@gmail.com)
+        pass: process.env.SMTP_PASS // Mot de passe d'application Gmail
+    }
   });
 
   // Modifie le corps de l'email pour inclure nom et email

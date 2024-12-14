@@ -1,5 +1,5 @@
 //IDIRICOACHING/backendendidiricoaching/routes/reservationRoutes.js
-
+const { getReservedSlotsForAdherent } = require("../controllers/reservationController");
 const express = require('express');
 const { 
     reserveSlot, 
@@ -42,6 +42,12 @@ router.put('/reserve-slot', authMiddleware, roleMiddleware(['adherent']), async 
   });
   
 
+// Route pour réserver un créneau
+router.patch('/reserve-slot', authMiddleware, reserveSlot);
+
+
+// Route pour récupérer les créneaux réservés d'un adhérent
+router.get("/:adherentId/reserved-slots", authMiddleware, getReservedSlotsForAdherent);
 
 
 
@@ -85,16 +91,16 @@ router.put('/cancel-reservation/:slotId', authMiddleware, async (req, res) => {
 // Route pour obtenir tous les créneaux réservés par un adhérent (accessible par l'adhérent connecté)
 router.get('/adherent/:adherentId/reserved-slots', authMiddleware, roleMiddleware(['adherent']), async (req, res) => {
     const { adherentId } = req.params;
-
+  
     try {
-        const reservedSlots = await Slot.find({ bookedBy: adherentId }).populate('coach'); // Inclure les détails du coach si nécessaire
-        res.status(200).json(reservedSlots);
+      const reservedSlots = await Slot.find({ bookedBy: adherentId }).populate('coach', 'firstName lastName');
+      res.status(200).json(reservedSlots);
     } catch (error) {
-        console.error('Erreur lors de la récupération des créneaux réservés :', error);
-        res.status(500).json({ error: 'Erreur serveur lors de la récupération des créneaux réservés.' });
+      console.error('Erreur lors de la récupération des créneaux réservés :', error.message);
+      res.status(500).json({ error: 'Erreur serveur lors de la récupération des créneaux réservés.' });
     }
-});
-
+  });
+  
 // Route pour obtenir les créneaux disponibles d'un coach
 router.get('/coach/:coachId/available-slots', authMiddleware, async (req, res) => {
     const { coachId } = req.params;

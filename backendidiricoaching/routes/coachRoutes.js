@@ -8,49 +8,29 @@ const { getAvailableSlotsByCoach } = require("../controllers/coachController");
 const User = require('../models/user'); // Ajout de cette ligne
 
 // Route pour récupérer tous les créneaux d'un coach spécifique
-router.get('/:coachId/slots', authMiddleware, roleMiddleware(['coach', 'adherent']), async (req, res) => {
+router.get('/:coachId/slots', async (req, res) => {
     const { coachId } = req.params;
-    const { status, date } = req.query; // Option de filtre par statut ou date
-    console.log("Requête reçue :", req.params, req.query); // Debug: Log des paramètres reçus
-
+    const { date, status } = req.query;
+  
     try {
-        // Vérifiez que l'ID du coach est valide
-        if (!coachId.match(/^[0-9a-fA-F]{24}$/)) {
-            console.log("ID coach invalide :", coachId);
-            return res.status(400).json({ error: 'ID de coach invalide.' });
-        }
-
-        // Vérifiez si le coach existe dans la base de données
-        const coachExists = await User.findById(coachId);
-        if (!coachExists || coachExists.role !== 'coach') {
-            console.log("Coach introuvable :", coachId);
-            return res.status(404).json({ error: 'Coach introuvable.' });
-        }
-
-        // Construire le filtre de requête MongoDB
-        const filter = { coach: coachId };
-        if (status) filter.status = status;
-        if (date) filter.date = date;
-
-        console.log("Filtre MongoDB :", filter); // Debug: Afficher le filtre construit
-
-        // Récupérer les créneaux
-        const slots = await Slot.find(filter)
-            .sort({ startTime: 1 })
-            .populate('bookedBy', 'firstName lastName email');
-
-        console.log("Créneaux récupérés :", slots); // Debug: Afficher les résultats
-
-        if (!slots || slots.length === 0) {
-            return res.status(404).json({ error: 'Aucun créneau trouvé pour ce coach.' });
-        }
-
-        res.status(200).json(slots);
+      const filter = { coach: coachId };
+      if (date) filter.date = date;
+      if (status) filter.status = status;
+  
+      const slots = await Slot.find(filter).sort({ startTime: 1 });
+  
+      if (slots.length === 0) {
+        // Retourne un tableau vide au lieu d'une erreur 404
+        return res.status(200).json([]);
+      }
+  
+      res.status(200).json(slots);
     } catch (error) {
-        console.error('Erreur lors de la récupération des créneaux :', error);
-        res.status(500).json({ error: 'Erreur serveur lors de la récupération des créneaux.' });
+      console.error('Erreur lors de la récupération des créneaux :', error);
+      res.status(500).json({ error: 'Erreur serveur lors de la récupération des créneaux.' });
     }
-});
+  });
+  
 
 
 

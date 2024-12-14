@@ -19,8 +19,7 @@ if (!process.env.MONGO_URI) {
 
 
 mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+
   serverSelectionTimeoutMS: 30000, // Temps d'attente pour se connecter
 })
   .then(() => console.log('✅ Connecté à MongoDB'))
@@ -46,15 +45,16 @@ const coachRoutes = require('./routes/coachRoutes');
 const slotRoutes = require('./routes/slotRoutes');
 const reservationRoutes = require('./routes/reservationRoutes');
 const emailRoutes = require('./routes/emailRoutes');
-
+const registerRoutes=require('./routes/register')
 // Utilisation des routes
 app.use('/api/users', userRoutes);
 app.use('/api/coaches', coachRoutes);
 app.use('/api/slots', slotRoutes);
 app.use('/api/reservations', reservationRoutes);
 app.use('/api/emails', emailRoutes);
+app.use('/api/register', registerRoutes);
 
-// Debug : Afficher toutes les routes enregistrées
+/*// Debug : Afficher toutes les routes enregistrées
 console.log("Liste des routes enregistrées :");
 app._router.stack.forEach((middleware) => {
   if (middleware.route) { // Si c'est une route
@@ -66,7 +66,7 @@ app._router.stack.forEach((middleware) => {
       }
     });
   }
-});
+});*/
 
 
 

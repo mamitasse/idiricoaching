@@ -2,40 +2,46 @@ const Slot = require('../models/slot');
 const mongoose = require('mongoose');
 
 
+
+/**
+ * Génère les créneaux par défaut pour une date donnée.
+ */
 exports.generateDefaultSlots = async (req, res) => {
   const { date } = req.body;
 
   try {
-    if (!req.user || !req.user.userId) {
-      return res.status(400).json({ error: "Utilisateur non authentifié." });
+    // Validation : Vérifiez si la date est dans le passé
+    const today = new Date().toISOString().split('T')[0]; // Format YYYY-MM-DD
+    if (date < today) {
+      return res.status(400).json({ error: 'Impossible de créer des créneaux pour une date passée.' });
     }
 
-    // Vérifiez si des créneaux existent déjà pour cette date
-    const existingSlots = await Slot.find({ coach: req.user.userId, date });
+    // Vérifiez si des créneaux existent déjà pour la date et le coach
+    const existingSlots = await Slot.find({ date, coach: req.user.userId });
     if (existingSlots.length > 0) {
-      return res.status(200).json(existingSlots); // Retourne les créneaux existants
+      return res.status(400).json({ error: 'Des créneaux existent déjà pour cette date.' });
     }
 
     // Générer les créneaux par défaut
-    const defaultSlots = [];
+    const slots = [];
     for (let hour = 8; hour < 21; hour++) {
-      defaultSlots.push({
+      slots.push({
         coach: req.user.userId,
         date,
         startTime: `${hour}:00`,
         endTime: `${hour + 1}:00`,
-        status: "available",
+        status: 'available',
       });
     }
 
-    // Sauvegarder les créneaux dans MongoDB
-    const createdSlots = await Slot.insertMany(defaultSlots);
-    res.status(201).json(createdSlots);
+    await Slot.insertMany(slots);
+    res.status(201).json({ message: 'Créneaux générés avec succès.', slots });
   } catch (error) {
-    console.error("Erreur lors de la génération des créneaux :", error);
-    res.status(500).json({ error: "Erreur serveur." });
+    console.error('Erreur lors de la génération des créneaux par défaut :', error);
+    res.status(500).json({ error: 'Erreur serveur lors de la génération des créneaux.' });
   }
 };
+
 
 
 exports.getSlots = async (req, res) => {
@@ -126,5 +132,25 @@ exports.addSlot = async (req, res) => {
   } catch (error) {
     console.error("Erreur lors de l’ajout du créneau :", error);
     res.status(500).json({ error: "Erreur serveur lors de l’ajout du créneau." });
+  }
+};
+
+const moment = require('moment'); // Utilisez moment.js pour manipuler les dates si nécessaire
+
+/**
+ * Supprime les créneaux disponibles pour les dates passées.
+ */
+exports.deletePastSlots = async (coachId) => {
+  try {
+    const today = new Date().toISOString().split('T')[0]; // Obtenez la date actuelle au format YYYY-MM-DD
+    const result = await Slot.deleteMany({
+      coach: coachId,
+      date: { $lt: today }, // Dates inférieures à aujourd'hui
+      status: 'available', // Seulement les créneaux disponibles
+    });
+
+    console.log(`Créneaux supprimés : ${result.deletedCount}`);
+  } catch (error) {
+    console.error('Erreur lors de la suppression des créneaux obsolètes :', error);
   }
 };
