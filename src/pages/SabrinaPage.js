@@ -14,12 +14,12 @@ const SabrinaPage = () => {
   return (
     <div className="sabrina-page">
       <div className="sabrina-header">
-        <h1>Bienvenue sur la page de Sabrina</h1>
+        <h1>Bienvenue, Coach Sabrina</h1>
         <p>Coach personnel à Paris et dans le nord de la périphérie (92, 95).</p>
       </div>
 
       <div className="sabrina-carousel">
-  <h2>Les performances de Sabrina</h2>
+  <h2>profitez de l'experience de Sabrina</h2>
   <CarouselComponent images={Images} />
 </div>
 

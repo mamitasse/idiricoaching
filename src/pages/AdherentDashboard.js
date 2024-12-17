@@ -101,7 +101,7 @@ const AdherentDashboard = () => {
   };
 
   return (
-    <div>
+    <div className='main'>
       <h1>Tableau de Bord de l'Adhérent</h1>
       {user && (
         <h2>
@@ -110,10 +110,10 @@ const AdherentDashboard = () => {
       )}
 
       <h3>Créneaux disponibles</h3>
-      <div style={{ marginBottom: '20px' }}>
+      <div className='Creneaux' style={{ paddingBottom: '20px' }}>
         <label htmlFor="slot-date">Sélectionnez une date :</label>
         <input
-          id="slot-date"
+          id="slot-date-ADHERENT"
           type="date"
           value={selectedDate}
           onChange={async (e) => {
@@ -128,7 +128,7 @@ const AdherentDashboard = () => {
         />
       </div>
 
-      <select
+      <select className='selection'
         value={selectedSlot}
         onChange={(e) => setSelectedSlot(e.target.value)}
         style={{ width: '100%', padding: '10px', marginBottom: '20px' }}

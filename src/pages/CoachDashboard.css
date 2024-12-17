@@ -1,98 +1,106 @@
 .coach-dashboard {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    color: blanchedalmond;
-  }
-  
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.slots-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.slot {
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+}
+
+.available-slot {
+  background-color: green;
+}
+
+.reserved-slot {
+  background-color: red;
+}
+
+.unavailable-slot {
+  background-color: orange;
+}
+
+.slot button {
+  margin: 5px;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  color: white;
+}
+
+.slot button:nth-child(1) {
+  background-color: orange;
+}
+
+.slot button:nth-child(2) {
+  background-color: red;
+}
+
+/* Responsive design */
+
+/* Écrans moyens : 2 colonnes */
+@media (max-width: 1024px) {
   .slots-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin-top: 20px;
+    grid-template-columns: repeat(3, 1fr);
   }
-  
+
   .slot {
-    padding: 10px;
-    text-align: center;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
+    font-size: 14px;
   }
-  
-  .available-slot {
-    background-color: green;
+}
+
+/* Petits écrans (tablettes et mobiles) : 1 colonne */
+@media (max-width: 768px) {
+  .slots-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
   }
-  
-  .reserved-slot {
-    background-color: red;
+
+  .slot {
+    font-size: 12px;
+    padding: 8px;
   }
-  
-  .unavailable-slot {
-    background-color: orange;
-  }
-  
+
   .slot button {
-    margin: 5px;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    color: white;
+    font-size: 12px;
+    padding: 4px 8px;
   }
-  
-  .slot button:nth-child(1) {
-    background-color: orange;
-  }
-  
-  .slot button:nth-child(2) {
-    background-color: red;
-  }
+}
+
+/* Très petits écrans : Ajustement des marges et padding */
+@media (max-width: 480px) {
   .coach-dashboard {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  .slots-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .slot {
     padding: 10px;
-    text-align: center;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
   }
-  
-  .available-slot {
-    background-color: green;
+  .slots-container {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 5px;
   }
-  
-  .reserved-slot {
-    background-color: red;
+  .slots-container {
+    gap: 3px;
   }
-  
-  .unavailable-slot {
-    background-color: orange;
+
+  .slot {
+    font-size: 10px;
+    padding: 6px;
   }
-  
+
   .slot button {
-    margin: 5px;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    color: white;
+    font-size: 10px;
+    padding: 3px 6px;
   }
-  
-  .slot button:nth-child(1) {
-    background-color: orange;
-  }
-  
-  .slot button:nth-child(2) {
-    background-color: red;
-  }
-    
+}

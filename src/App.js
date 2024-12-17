@@ -16,6 +16,7 @@ import AdherentDashboard from '../src/pages/AdherentDashboard.js';
 import PrivateRoute from './PrivateRoute';
 import CoachSignup from '../src/pages/coachSignup.js';
 import AdherentProfile from './pages/AdherentProfile.js'
+import ResetPassword from './pages/resetPassword.js'
 
 function App() {
   const token = useSelector((state) => state.auth.token); // Récupérez le token de l'état Redux
@@ -33,6 +34,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/coach-signup" element={<CoachSignup />} />
         <Route path="/adherent/:adherentId" element={<AdherentProfile />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
+
         
         {/* Routes protégées */}
         <Route path="/coach-dashboard" 

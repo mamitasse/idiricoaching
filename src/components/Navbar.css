@@ -40,7 +40,7 @@
 }
 
 /* Responsive pour les petits écrans */
-@media (max-width: 768px) {
+@media (max-width: 860px) {
   .navbar-links {
     display: none;
     flex-direction: column;
@@ -49,7 +49,7 @@
     top: 60px; /* Ajuste selon la hauteur de la navbar */
     right: 20px;
     background-color: #3e3e3e;
-    padding: 20px;
+  
     border-radius: 10px;
   }
 
