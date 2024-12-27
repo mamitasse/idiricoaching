@@ -125,8 +125,8 @@
 }
 
 .signup-button {
-  background-color: #d2691e;
-  color: #fff;
+  background-color: rgba(113, 82, 82, 0.05);
+  color: black;
   border: none;
   padding: 10px 20px;
   font-size: 1.1rem;
@@ -136,7 +136,7 @@
 }
 
 .signup-button:hover {
-  background-color: #c45d1c;
+  background-color: rgba(113, 82, 82, 0.05);
   transform: scale(1.1); /* Agrandissement plus marqué au survol */
 }
 

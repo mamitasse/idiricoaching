@@ -37,17 +37,12 @@ const SabrinaPage = () => {
 
       <div className="sabrina-signup">
       <h2>Intéressé(e) par ses services ?</h2>
-        <p>Contactez-nous pour bénéficier d'un coaching personnalisé.</p>
-        <button className="signup-button" onClick={() => window.location.href = '/Contact'}>
+      
+        <button className="signup-button contact" onClick={() => window.location.href = '/Contact'}>
           
-        Contact
+        Contactez-nous pour bénéficier d'un coaching personnalisé
         </button>
-        <button className="signup-button" onClick={() => window.location.href = '/signup'}>
-          Inscription
-        </button>
-        <button className="signup-button" onClick={() => window.location.href = '/login'}>
-          connexion
-        </button>
+      
       </div>
     </div>
   );

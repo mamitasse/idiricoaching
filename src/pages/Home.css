@@ -1,6 +1,6 @@
 /* Styles globaux */
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: #4E3C3C;
   margin: 0;
   padding: 0;
@@ -50,7 +50,7 @@ h1 {
 .coach-card h2 {
   font-size: 22px;
   margin: 15px 0;
-  color: #F3E0D9;
+  color: #6f4c3f;
 }
 
 /* Bouton de présentation */
@@ -93,6 +93,7 @@ footer p {
   font-size: 14px;
 }
 
+
 /* Pour les petits écrans */
 @media (max-width: 768px) {
   .coaches {
@@ -110,7 +111,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #FFFFFF;
+  color: #e7b19e;
 
   top: 0;
   z-index: 1000;
@@ -132,7 +133,7 @@ header {
   font-size: 24px;
   font-family: 'Arial', sans-serif;
   font-weight: bold;
-  color: #F3E0D9;
+  color: #e7b19e;
 }
 
 /* Menu de navigation */
@@ -167,8 +168,8 @@ nav ul li a:hover {
 
 /* Bouton Connexion/Inscription */
 .header-button {
-  background-color: #C2A391;
-  color: #FFFFFF;
+  background-color: rgba(113, 82, 82, 0.05); /* Fond transparent */
+  color: rgba(113, 82, 82, 0.05);
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
@@ -179,7 +180,7 @@ nav ul li a:hover {
 }
 
 .header-button:hover {
-  background-color: #D4B6A5;
+  background-color: rgba(113, 82, 82, 0.05);
 }
 /* Container global */
 .home-container {
@@ -238,8 +239,195 @@ height:250px;
   margin-top: 30px;
 }
 .connexion-inscription{
+  background-color: rgba(113, 82, 82, 0.05); /* Fond transparent */
   margin-top: 10px;
 display: flex;
 flex-direction: row;
 justify-content: center;
 }
+/* Animation du titre */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  white-space: nowrap; /* Empêche le texte de passer à la ligne */
+  overflow: hidden; /* Cache le texte qui dépasse */
+  animation: typing 3s steps(30, end); /* Supprimez la référence à blink-caret */
+}
+
+/* Effet de zoom sur les images */
+.coach-card {
+  width: 300px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.coach-card:hover {
+  transform: scale(1.05); /* Zoom sur la carte entière */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.coach-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease; /* Transition fluide sur l'image */
+}
+
+.coach-card:hover .coach-image {
+  transform: scale(1.2); /* Zoom spécifique sur l'image */
+}
+
+/* Ajout de styles pour les écrans tactiles */
+@media (hover: none) and (pointer: coarse) {
+  .coach-card:active .coach-image {
+    transform: scale(1.2); /* Agrandissement au clic/toucher */
+  }
+}
+.coach-card:hover .coach-image {
+  transform: scale(1.2) rotate(3deg); /* Ajoute une légère rotation */
+}
+/* Styles pour les titres */
+h1 {
+  font-size: 28px; /* Taille par défaut */
+  font-weight: bold;
+  margin-bottom: 20px;
+  white-space: nowrap; /* Empêche le texte de passer à la ligne */
+  overflow: hidden; /* Cache le texte qui dépasse */
+  animation: typing 3s steps(30, end);
+}
+
+h2 {
+  font-size: 22px; /* Taille par défaut pour les sous-titres */
+}
+
+/* Rendre les titres responsives */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 20px; /* Taille plus petite sur tablette et mobile */
+  }
+
+  h2 {
+    font-size: 18px; /* Sous-titres ajustés */
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 16px; /* Encore plus petit pour les très petits écrans */
+    animation: typing 2s steps(20, end); /* Accélère l'animation */
+  }
+
+  h2 {
+    font-size: 14px;
+  }
+}
+.coach-card {
+  background-color: rgba(113, 82, 82, 0.05); /* Couleur de fond avec 50% de transparence */
+  border-radius: 15px;
+  padding: 20px;
+  width: 300px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  border: 0.5px solid rgba(255, 255, 255, 0.2); /* Bordure fine avec une légère transparence */
+}
+
+/* Effet au survol */
+.coach-card:hover {
+  transform: scale(1.05); /* Zoom léger */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Ombre douce */
+}
+/* Styles pour les cartes de coach */
+.coach-card {
+  background-color: rgba(113, 82, 82, 0.05); /* Fond transparent */
+  border-radius: 15px;
+  padding: 20px;
+  width: 300px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  border: 0.025px solid rgba(255, 255, 255, 0.2); /* Bordure semi-transparente */
+  position: relative; /* Pour positionner les enfants */
+}
+
+/* Effet au survol */
+.coach-card:hover {
+  transform: scale(1.05); /* Zoom sur la carte entière */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Ombre douce */
+}
+
+/* Styles pour les images */
+.coach-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease; /* Transition fluide sur l'image */
+}
+
+/* Effet de zoom sur l'image au survol */
+.coach-card:hover .coach-image {
+  transform: scale(1.2); /* Zoom spécifique sur l'image */
+}
+
+/* Titre du coach */
+.coach-card h2 {
+  font-size: 22px;
+  margin: 15px 0;
+  color: #F3E0D9;
+  transition: font-size 0.3s ease, color 0.3s ease;
+  overflow: hidden; /* Cache les lettres */
+  white-space: nowrap; /* Garde le texte sur une seule ligne */
+  display: inline-block;
+  animation: none; /* Pas d'animation par défaut */
+}
+
+/* Effet sur le titre au survol */
+.coach-card:hover h2 {
+  font-size: 28px; /* Taille plus grande au survol */
+  color: #C2A391; /* Couleur plus douce */
+  animation: typing 2s steps(15, end) 1; /* Animation pour afficher lettre par lettre */
+}
+
+/* Animation pour le défilement des lettres */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* Ajout de styles pour les écrans tactiles */
+@media (hover: none) and (pointer: coarse) {
+  .coach-card:active .coach-image {
+    transform: scale(1.2); /* Agrandissement au clic/toucher */
+  }
+
+  .coach-card:active h2 {
+    font-size: 28px;
+    color: #C2A391;
+  }
+}
+.connexion{
+  background-color: rgba(113, 82, 82, 0.05);
+  color:black;
+
+}
+p{font-size: 13px;}
