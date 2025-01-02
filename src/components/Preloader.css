@@ -1,0 +1,30 @@
+.preloader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: linear-gradient(rgba(78, 60, 60, 0.8), rgba(78, 60, 60, 0.8)), 
+    url('../assets/PHOTONADIAETSABRINA.jpg'); /* Remplacez par le chemin de vot*/
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+  }
+  
+  .preloader-logo {
+    width: 80%; /* Ajustez la taille selon vos besoins */
+    animation: spin 2s linear infinite; /* Animation de rotation */
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(180deg); /* Demi-tour */
+    }
+    100% {
+      transform: rotate(360deg); /* Retour à l'état initial */
+    }
+  }
+  

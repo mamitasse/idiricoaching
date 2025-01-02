@@ -11,18 +11,19 @@ const ResetPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (password !== confirmPassword) {
       setMessage("Les mots de passe ne correspondent pas.");
       return;
     }
-
+  
     try {
-      const response = await axios.post('http://localhost:5000/api/users/reset-password', {
+      // Remplacez l'URL du backend local par celle de production
+      const response = await axios.post('https://idiricoaching.fr/api/users/reset-password', {
         token,
         password,
       });
-
+  
       setMessage(response.data.message);
       setTimeout(() => {
         navigate('/login'); // Redirige vers la page de connexion
@@ -31,7 +32,6 @@ const ResetPassword = () => {
       setMessage(error.response?.data?.error || "Erreur lors de la réinitialisation.");
     }
   };
-
   return (
     <div>
       <h2>Réinitialisation du Mot de Passe</h2>

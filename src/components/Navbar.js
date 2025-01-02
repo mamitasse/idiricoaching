@@ -25,7 +25,7 @@ const Navbar = () => {
         <img src={logo} alt="Idiri Coaching Logo" className="logo" />
       </div>
       <button className="menu-toggle" onClick={toggleMenu}>
-        ☰
+       ☰ 
       </button>
       <ul className={`navbar-links ${isOpen ? 'open' : ''}`}>
         {links.map((link, index) => (

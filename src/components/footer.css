@@ -1,76 +1,66 @@
 /* Conteneur global pour la section des réseaux sociaux */
-.social-container {
-    display: flex;
-    justify-content: center;
+footer {
+  display: flex;
+  justify-content: space-between; /* Espacement égal entre les sections */
+  align-items: center; /* Centrage vertical */
+  background-color: #715252; /* Couleur de fond */
+  color: #ffffff; /* Couleur du texte */
+  padding: 20px; /* Espacement interne */
+  width: 100%; /* Largeur complète */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Ombre pour un effet moderne */
+  position: relative; /* Position par défaut */
+}
+
+/* Sections Nadia, Sabrina, et Logo */
+.social-linksnadia,
+.social-linkssabrina,
+.logo {
+  display: flex;
+  flex-direction: column; /* Disposition verticale */
+  align-items: center; /* Centrage horizontal */
+  flex: 1; /* Distribution équitable de l'espace */
+  text-align: center;
+}
+
+/* Nom de la section (Nadia/Sabrina) */
+.social-linksnadia span,
+.social-linkssabrina span {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Icônes sociales */
+.social-linksnadia img,
+.social-linkssabrina img {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  transition: transform 0.3s ease; /* Transition fluide pour l'effet hover */
+}
+
+.social-linksnadia img:hover,
+.social-linkssabrina img:hover {
+  transform: scale(1.2); /* Zoom des icônes au survol */
+}
+
+/* Logo central */
+.logo img {
+  width: 100px;
+  height: auto;
+}
+
+/* Réactivité pour les petits écrans */
+@media (max-width: 768px) {
+  footer {
+    flex-direction: column; /* Disposition verticale sur petits écrans */
     align-items: center;
-    margin-top: 20px;
-  }
-  
-  .social-icons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 10px; /* espace entre les sections Nadia et Sabrina */
-  }
-  
-  .social-icons img {
-    width: 40px; /* Ajuste la taille des icônes */
-    height: 40px;
-    margin: 5px;
-  }
-  
-  .social-icons h3 {
-    margin-top: 10px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
     text-align: center;
   }
-  
-  /* Section générale */
-  footer {
-    display: flex;
-    justify-content: space-around;
-    background-color: #715252;
-    padding: 20px;
+
+  .social-linksnadia,
+  .social-linkssabrina,
+  .logo {
+    margin-bottom: 20px; /* Espacement entre les sections */
   }
-  
-  footer .social-section {
-    display: flex;
-    justify-content: center;
-  }
-  
-  footer .social-section .social-icons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .social-icons a {
-    margin-bottom: 5px; /* espace entre les icônes */
-  }
-  
-  .social-icons h3 {
-    margin-top: 8px;
-    font-size: 14px;
-    color: #fff;
-  }
-  
-  /* Styles pour petits écrans */
-  @media (max-width: 768px) {
-    footer {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .social-icons {
-      margin-bottom: 20px;
-    }
-  }
-  span{
-    font-size: 10px;
-  }
-  .logo img{
-    width: 100px;
-    height: 50px;
-  }
+}

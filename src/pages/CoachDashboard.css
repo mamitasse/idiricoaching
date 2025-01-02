@@ -50,6 +50,10 @@
   background-color: red;
 }
 
+.slot button:nth-child(3) {
+  background-color: rgb(17, 70, 17);
+}
+
 /* Responsive design */
 
 /* Écrans moyens : 2 colonnes */

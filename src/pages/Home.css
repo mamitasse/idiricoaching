@@ -428,6 +428,7 @@ h2 {
 .connexion{
   background-color: rgba(113, 82, 82, 0.05);
   color:black;
+  font-weight: 900;
 
 }
 p{font-size: 13px;}

@@ -3,7 +3,7 @@
   justify-content: space-around;
   align-items: center;
   padding: 10px 20px;
-  background-color: #715252;;
+  background-color: #715252;
 }
 
 .navbar-logo .logo {
@@ -12,7 +12,6 @@
 
 .navbar-links {
   list-style-type: none;
- 
 }
 
 .navbar-links li {
@@ -32,24 +31,49 @@
 /* Style pour le bouton menu (menu hamburger) */
 .menu-toggle {
   display: none;
-  font-size: 30px;
+  font-size: 40px;
   color: #fff;
   background: none;
   border: none;
   cursor: pointer;
 }
+.menu-toggle:hover {
+  background-color: #3e3e3e;
+  border: none;
+}
 
 /* Responsive pour les petits écrans */
 @media (max-width: 860px) {
+
+  /* Style pour le bouton menu (menu hamburger) */
+/* Style pour le bouton menu (menu hamburger) */
+.menu-toggle {
+  display: block; /* S'assure que le bouton est visible */
+  font-size: 40px;
+  color: #fff;
+  background: none;
+  border: none !important; /* Forcer la suppression de toute bordure */
+  cursor: pointer;
+}
+
+.menu-toggle:hover {
+  background-color: #3e3e3e; /* Change uniquement le fond au survol */
+  border: none !important; /* Pas de bordure au survol */
+}
+
+.menu-toggle:focus,
+.menu-toggle:active {
+  outline: none; /* Supprime le contour ou la bordure */
+  border: none; /* Supprime toute bordure */
+}
   .navbar-links {
     display: none;
     flex-direction: column;
     gap: 10px;
     position: absolute;
     top: 60px; /* Ajuste selon la hauteur de la navbar */
-    right: 20px;
-    background-color: #3e3e3e;
-  
+    right: 30px;
+
     border-radius: 10px;
   }
 
@@ -59,5 +83,20 @@
 
   .menu-toggle {
     display: block;
+  }
+  .navbar-links li {
+   
+    background-color: #302727;
+    width: 100%;
+    height:40PX;
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease; /* Animation fluide */
+    border:0.015px;
+    border-color: #eee6e6;
+  }
+
+  .navbar-links li:hover {
+    transform: scale(1.1); /* Agrandit légèrement */
+    background-color: #555; /* Change la couleur de fond */
   }
 }
