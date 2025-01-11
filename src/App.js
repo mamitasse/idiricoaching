@@ -1,74 +1,103 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import Navbar from '../src/components/Navbar';
-import Home from '../src/pages/Home';
-import NadiaPage from '../src/pages/NadiaPage';
-import SabrinaPage from '../src/pages/SabrinaPage';
-import Signup from '../src/pages/signup';
-import Footer from '../src/components/footer';
-import Services from '../src/pages/services';
-import Contact from '../src/pages/contact.js';
-import Login from '../src/pages/login.js';
-import CoachDashboard from '../src/pages/CoachDashboard';
-import AdherentDashboard from '../src/pages/AdherentDashboard.js';
-import PrivateRoute from './PrivateRoute';
-import CoachSignup from '../src/pages/coachSignup.js';
+import React, { useState, useEffect, createContext, useContext } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import NadiaPage from './pages/NadiaPage';
+import SabrinaPage from './pages/SabrinaPage';
+import Signup from './pages/signup';
+import Footer from './components/footer';
+import Services from './pages/services';
+import Contact from './pages/contact.js';
+import Login from './pages/login.js';
+import CoachDashboard from './pages/CoachDashboard';
+import AdherentDashboard from './pages/AdherentDashboard.js';
+import CoachSignup from './pages/coachSignup.js';
 import AdherentProfile from './pages/AdherentProfile.js';
 import ResetPassword from './pages/resetPassword.js';
-import Preloader from './components/Preloader'; // Import du Preloader
+import Preloader from './components/Preloader';
+
+// Création du contexte d'authentification
+const AuthContext = createContext();
+
+// Hook personnalisé pour accéder au contexte d'authentification
+export const useAuth = () => useContext(AuthContext);
 
 function App() {
-  const token = useSelector((state) => state.auth.token);
   const [isLoading, setIsLoading] = useState(true);
+  const [auth, setAuth] = useState({ token: null, role: null });
 
+  // Simulation de chargement du Preloader
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 3000); // Durée du Preloader
+    }, 3000);
 
-    return () => clearTimeout(timer); // Nettoyer le timer
+    // Récupération du token et du rôle dans le localStorage
+    const storedToken = localStorage.getItem('token');
+    const storedRole = localStorage.getItem('role');
+
+    if (storedToken) {
+      setAuth({ token: storedToken, role: storedRole });
+    }
+
+    return () => clearTimeout(timer);
   }, []);
 
   if (isLoading) {
-    return <Preloader />; // Afficher le Preloader tant que le site n'est pas prêt
+    return <Preloader />;
   }
 
-  return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/nadia" element={<NadiaPage />} />
-        <Route path="/sabrina" element={<SabrinaPage />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/coach-signup" element={<CoachSignup />} />
-        <Route path="/adherent/:adherentId" element={<AdherentProfile />} />
-        <Route path="/reset-password/:token" element={<ResetPassword />} />
+  // Composant interne pour gérer les routes protégées
+  const ProtectedRoute = ({ allowedRole, children }) => {
+    if (!auth.token) {
+      return <Navigate to="/login" />;
+    }
 
-        {/* Routes protégées */}
-        <Route
-          path="/coach-dashboard"
-          element={
-            <PrivateRoute allowedRole="coach">
-              <CoachDashboard />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/adherent-dashboard"
-          element={
-            <PrivateRoute allowedRole="adherent">
-              <AdherentDashboard />
-            </PrivateRoute>
-          }
-        />
-      </Routes>
-      <Footer />
-    </Router>
+    if (auth.role !== allowedRole) {
+      return <Navigate to="/" />;
+    }
+
+    return children;
+  };
+
+  return (
+    <AuthContext.Provider value={{ auth, setAuth }}>
+      <Router>
+        <Navbar />
+        <Routes>
+          {/* Routes publiques */}
+          <Route path="/" element={<Home />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/nadia" element={<NadiaPage />} />
+          <Route path="/sabrina" element={<SabrinaPage />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/coach-signup" element={<CoachSignup />} />
+          <Route path="/adherent/:adherentId" element={<AdherentProfile />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+
+          {/* Routes protégées */}
+          <Route
+            path="/coach-dashboard"
+            element={
+              <ProtectedRoute allowedRole="coach">
+                <CoachDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/adherent-dashboard"
+            element={
+              <ProtectedRoute allowedRole="adherent">
+                <AdherentDashboard />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+        <Footer />
+      </Router>
+    </AuthContext.Provider>
   );
 }
 
