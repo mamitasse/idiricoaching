@@ -11,7 +11,6 @@ import Contact from './pages/contact.js';
 import Login from './pages/login.js';
 import CoachDashboard from './pages/CoachDashboard';
 import AdherentDashboard from './pages/AdherentDashboard.js';
-import CoachSignup from './pages/coachSignup.js';
 import AdherentProfile from './pages/AdherentProfile.js';
 import ResetPassword from './pages/resetPassword.js';
 import Preloader from './components/Preloader';
@@ -73,7 +72,6 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/coach-signup" element={<CoachSignup />} />
           <Route path="/adherent/:adherentId" element={<AdherentProfile />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
 
