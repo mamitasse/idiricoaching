@@ -43,7 +43,7 @@ const Contact = () => {
 
     try {
       // Appel API pour envoyer l'email via ton backend
-      const response = await fetch('${process.env.REACT_APP_API_URL}/api/emails/send-email', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/emails/send-email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

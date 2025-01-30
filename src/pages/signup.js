@@ -80,17 +80,7 @@ const Signup = () => {
     const coachMapping = {
       nadia: '6753827c3be821de23db3033',
       sabrina: '675454d9545f71e6271d40df',
-    };const handleSubmit = async (e) => {
-      e.preventDefault();
-    
-      if (!validateForm()) {
-        return;
-      }
-    
-      const coachMapping = {
-        nadia: '6753827c3be821de23db3033',
-        sabrina: '675454d9545f71e6271d40df',
-      };
+    };
     
       const userData = {
         firstName,
@@ -106,10 +96,10 @@ const Signup = () => {
       };
     
       try {
-        await api.post('api/api/users/adherent-register', userData);
+        await api.post(`/api/users/adherent-register`, userData);
     
         // Envoyer un e-mail de confirmation
-        await api.post('api/api/send-email', {
+        await api.post(`/api/send-email`, {
           type: 'confirmation',
           name: `${firstName} ${lastName}`,
           email: email,
@@ -127,31 +117,7 @@ const Signup = () => {
     };
     
 
-    const userData = {
-      firstName,
-      lastName,
-      email,
-      password,
-      role: 'adherent',
-      gender,
-      age: parseInt(age, 10),
-      coachId: coachMapping[selectedCoach],
-      phone,
-      address,
-    };
-
-    try {
-      await api.post('api/api/users/adherent-register', userData);
-      setSuccessMessage('Inscription réussie ! Redirection vers la page de connexion...');
-      setErrors({});
-      setTimeout(() => {
-        navigate('/login');
-      }, 3000);
-    } catch (error) {
-      console.error('Erreur lors de l\'inscription:', error);
-      setErrors({ global: error.response?.data?.error || 'Erreur inattendue.' });
-    }
-  };
+    
 
   return (
     <div className="signup-container">

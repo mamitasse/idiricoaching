@@ -27,7 +27,7 @@ const CoachDashboard = () => {
 
       try {
         const headers = { Authorization: `Bearer ${token}` };
-        const response = await api.get("api/users/me", { headers });
+        const response = await api.get(`api/users/me`, { headers });
         setCoachName(`${response.data.firstName} ${response.data.lastName}`);
         setTodayDate(
           new Date().toLocaleDateString("fr-FR", {
@@ -56,7 +56,7 @@ const CoachDashboard = () => {
 
       try {
         const headers = { Authorization: `Bearer ${token}` };
-        const response = await api.get("api/users/adherents", { headers });
+        const response = await api.get( `api/users/adherents` , { headers });
         setAdherents(response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des adhérents :", error.response?.data || error.message);
@@ -132,7 +132,7 @@ const CoachDashboard = () => {
 
       // Envoyer la requête pour ajouter un créneau
       await api.post(
-        "api/coaches/add-slot",
+        `api/coaches/add-slot`,
         { ...newSlot, date: selectedDate, status: "available" },
         { headers }
       );

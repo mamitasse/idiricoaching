@@ -21,7 +21,7 @@ const AdherentDashboard = () => {
           return;
         }
 
-        const response = await api.get('api/users/me', {
+        const response = await api.get(`api/users/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -84,7 +84,7 @@ const AdherentDashboard = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await api.patch(
-        'api/reservations/reserve-slot',
+        `api/reservations/reserve-slot`,
         { slotId: selectedSlot },
         {
           headers: { Authorization: `Bearer ${token}` },

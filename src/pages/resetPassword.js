@@ -20,7 +20,7 @@ const ResetPassword = () => {
   
     try {
       // Remplacez l'URL du backend local par celle de production
-      const response = await api.post('api/users/reset-password', {
+      const response = await api.post(`api/users/reset-password`, {
         token,
         password,
       });

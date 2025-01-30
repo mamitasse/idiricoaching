@@ -32,7 +32,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('${process.env.REACT_APP_API_URL}/api/users/login', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -58,9 +58,9 @@ const Login = () => {
 
       // Redirection basée sur le rôle
       if (data.user.role === 'coach') {
-        navigate('/coach-dashboard');
+        navigate(`/coach-dashboard`);
       } else if (data.user.role === 'adherent') {
-        navigate('/adherent-dashboard');
+        navigate(`/adherent-dashboard`);
       } else {
         setErrors({
           submissionError: true,
@@ -80,7 +80,7 @@ const Login = () => {
   const handleForgotPasswordSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('${process.env.REACT_APP_API_URL}/api/users/forgot-password', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/forgot-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: forgotPasswordEmail }),

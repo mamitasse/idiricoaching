@@ -432,3 +432,78 @@ h2 {
 
 }
 p{font-size: 13px;}
+.event-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px auto;
+  max-width: 800px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  color: black;
+}
+
+.event-image {
+  width: 200px;
+  height: auto;
+  margin-right: 20px;
+  border-radius: 10px;
+}
+
+/* Texte bien aligné */
+.event-details {
+  text-align: left;
+  max-width: 500px;
+}
+
+.event-mail {
+  color: #007bff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.event-mail:hover {
+  text-decoration: underline;
+}
+
+/* Responsive pour les écrans de taille moyenne */
+@media (max-width: 768px) {
+  .event-section {
+    flex-direction: column;
+    text-align: center;
+    padding: 15px;
+  }
+
+  .event-image {
+    width: 150px;
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+
+  .event-details {
+    text-align: center;
+  }
+}
+
+/* Responsive pour les petits écrans */
+@media (max-width: 480px) {
+  .event-section {
+    width: 90%;
+    padding: 10px;
+  }
+
+  .event-image {
+    width: 120px;
+  }
+
+  .event-details {
+    font-size: 14px;
+  }
+
+  .event-mail {
+    font-size: 14px;
+  }
+}
