@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import nadiaImage from '../assets/nadiapagedaccueil.png';
 import sabrinaImage from '../assets/sabrinapagedaccueil.jpg';
-import eventImage from '../assets/event.jpeg'; // Ajoute ton image d'événement ici
+import eventImage from '../assets/event.jpeg';
+import event2Image from '../assets/event2.jpeg';// Ajoute ton image d'événement ici
 import { Link } from 'react-router-dom';
 import './Home.css';
 
@@ -39,6 +40,27 @@ function Home() {
             <a href="mailto:idiricoaching56@gmail.com" className="event-mail">idiricoaching56@gmail.com</a>
           </div>
         </div>
+        <div className="event-section">
+  <img src={event2Image} alt="Événement Spécial" className="event-image" />
+  <div className="event-details">
+    <h2>📢 Événement Spécial !</h2>
+    <h2> SESSION STREETLIFTING</h2>
+    <p>Rejoignez notre prochain coaching exclusif avec Nadia.</p>
+    <p>📅 Dates : 01, 02, 08, 09, 15, 16, 22, 23, 29, 30 MARS 2025 - Restez informé !</p>
+    <p>📍 Lieu : Crossfit Claye, 15 rue Victor Baltard, 77410 CLAYE-Souilly</p>
+    
+    {/* Nouveau paragraphe pour les horaires */}
+    <p>⏰ Horaires : Toutes les sessions auront lieu à <strong>14h00</strong>.</p>
+    
+    {/* Nouveau paragraphe pour les tarifs */}
+ 
+    <p><Link to="/Services" className="coach-link"><strong>pour en savoir plus,cliquez ici!</strong>.</Link></p>
+
+    
+    <p>💌 Pour vous inscrire ou plus d'infos, envoyez un email avec nom, prénom, date de session choisie et téléphone à :</p>
+    <a href="mailto:idiricoaching56@gmail.com" className="event-mail">idiricoaching56@gmail.com</a>
+  </div>
+</div>
 
         <div className="coaches">
           <div className="coach-card">

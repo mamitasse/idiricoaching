@@ -1,5 +1,6 @@
 import React from 'react';
 import './Service.css';
+import servicespecial from '../assets/streetliftingimage.jpg';
 
 const Service = () => {
   return (
@@ -10,6 +11,8 @@ const Service = () => {
       </p>
 
       <div className="service-section">
+        <h2>Evènements spécials</h2>
+        <img src={servicespecial} alt="Événement Spécial" className="eventservice" />
         <h2>Yoga, Bien-être</h2>
         <p>
           Nos cours de yoga sont adaptés à tous les niveaux et vous aident à améliorer votre souplesse, renforcer votre esprit, et détendre votre corps. Le yoga est également un excellent moyen de travailler la posture et la respiration. Nous vous aidons à trouver un équilibre mental et physique à travers des techniques de relaxation et de gestion du stress. L'accent est mis sur l'amélioration de votre bien-être global.
